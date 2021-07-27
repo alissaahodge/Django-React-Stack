@@ -1,0 +1,9 @@
+# Django excludes
+backend/pystack/media
+backend/pystack/static
+
+# React excludes
+frontend/node_modules
+
+# git excludes
+.git

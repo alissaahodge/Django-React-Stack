@@ -1,0 +1,76 @@
+upstream web {
+  ip_hash;
+  server react_frontend:${REACT_PORT};
+}
+
+upstream django {
+  ip_hash;
+  server django_backend:${DJANGO_PORT};
+}
+
+server {
+
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  ssl_certificate /etc/nginx/certs/app.crt;
+  ssl_certificate_key /etc/nginx/certs/app.key;
+  ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+  error_page 497 https://$host:${DJANGO_PORT}$request_uri;
+  client_max_body_size 20M;
+
+  location /api/v1/static/ {
+    autoindex on;
+    alias /src/static/;
+  }
+
+  location /api/v1/media/ {
+    autoindex on;
+    alias /src/media/;
+  }
+
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;  # <-
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_pass http://django;
+  }
+
+  location /ws/session {
+    proxy_pass http://django;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_redirect     off;
+    proxy_set_header   Host $host;
+    proxy_set_header   X-Real-IP $remote_addr;
+    proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+
+server {
+  listen 446 ssl http2;
+  listen [::]:446 ssl http2;
+  ssl_certificate /etc/nginx/certs/app.crt;
+  ssl_certificate_key /etc/nginx/certs/app.key;
+  ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+  error_page 497 https://$host:${REACT_PORT}$request_uri;
+
+  location /api/v1/static/ {
+    autoindex on;
+    alias /src/static/;
+  }
+
+  location /api/v1/media/ {
+    autoindex on;
+    alias /src/media/;
+  }
+
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto https;  # <-
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_pass http://web;
+    }
+}

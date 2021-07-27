@@ -1,0 +1,105 @@
+version: "3"
+
+volumes:
+  local_postgres_data: {}
+  local_pgadmin_data: {}
+
+services:
+  postgres_db:
+    image: postgres:12
+    restart: always
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_DB
+      - POSTGRES_PASSWORD
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+    volumes:
+    - local_postgres_data:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    networks:
+      app_network:
+
+  nginx:
+    build:
+      context: .
+      dockerfile: compose/nginx/Dockerfile
+    ports:
+      - ${DJANGO_PORT}:443
+      - ${REACT_PORT}:446
+    volumes:
+      - ./backend/pystack:/src
+      - ./config/nginx/certs:/etc/nginx/certs
+    depends_on:
+      - django_backend
+      - react_frontend
+    environment:
+      - REACT_PORT
+      - DJANGO_PORT
+    networks:
+      app_network:
+
+  django_backend:
+    build:
+      context: .
+      dockerfile: compose/django/Dockerfile
+    depends_on:
+      - postgres_db
+    volumes:
+      - ./backend:/src:delegated
+    expose:
+      - ${DJANGO_PORT}
+    environment:
+      - ENV
+      - DJANGO_SETTINGS_MODULE
+      - PYTHONPATH
+      - POSTGRES_USER
+      - POSTGRES_DB
+      - POSTGRES_PASSWORD
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - DJANGO_PORT
+      - REACT_PORT
+    networks:
+      app_network:
+
+  react_frontend:
+    build:
+      context: .
+      dockerfile: compose/react/Dockerfile
+    depends_on:
+      - django_backend
+    volumes:
+      - ./frontend:/frontend:delegated
+      - /frontend/node_modules
+    expose:
+      - ${REACT_PORT}
+    environment:
+      - REACT_PORT
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      app_network:
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - ${PGADMIN_PORT}:${PGADMIN_PORT_INTERNAL}
+    environment:
+      - PGADMIN_DEFAULT_EMAIL
+      - PGADMIN_DEFAULT_PASSWORD
+    links:
+      - postgres_db:postgres_db
+    depends_on:
+      - postgres_db
+    volumes:
+      - local_pgadmin_data:/var/lib/pgadmin
+    expose:
+      - ${PGADMIN_PORT}
+    networks:
+      app_network:
+
+networks:
+  app_network:
+    driver: bridge

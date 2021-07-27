@@ -1,0 +1,17 @@
+{#{% extends "pystack/base.html" %}#}
+
+
+{% block title %}Create an Account{% endblock %}
+{#{% load crispy_forms_tags %}#}
+
+{% block content %}
+    <form method="POST" class="form-group">
+{#	{% csrf_token %}#}
+	{{ form }}
+	<button type="submit" class="btn btn-success">Register</button>
+    </form>
+
+    <br><br>
+
+
+{% endblock %}
