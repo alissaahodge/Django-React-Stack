@@ -21,7 +21,7 @@ const AccountProfile = (props) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
   const handleSubmit = () => {
-    dispatch(updateAccount(user._id, {
+    dispatch(updateAccount(user.id, {
       ...user
     }));
     navigate('/app/account', {replace: true});
@@ -50,7 +50,7 @@ const AccountProfile = (props) => {
             gutterBottom
             variant="h3"
           >
-            {user.result.firstName}  &nbsp;{user.result.lastName}
+            {user.result.first_name}  &nbsp;{user.result.last_name}
           </Typography>
           <Typography
             color="textSecondary"

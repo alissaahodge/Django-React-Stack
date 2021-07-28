@@ -15,7 +15,7 @@ import ConfirmDialog from "../ConfirmDialog/ConfirmDialog";
 import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
 
 const SettingsPassword = (props) => {
-  const id = JSON.parse(localStorage.getItem('profile')).result._id;
+  const id = JSON.parse(localStorage.getItem('profile')).result.id;
   const [values, setValues] = useState({
     password: '',
     confirmPassword: ''

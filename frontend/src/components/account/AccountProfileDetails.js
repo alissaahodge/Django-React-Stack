@@ -27,7 +27,7 @@ const AccountProfileDetails = (props) => {
   };
 
   const handleSubmit = () => {
-    dispatch(updateAccount(values._id, {
+    dispatch(updateAccount(values.id, {
       ...values
     }));
     navigate('/app/account', {replace: true});
@@ -61,10 +61,10 @@ const AccountProfileDetails = (props) => {
                 fullWidth
                 helperText="Please specify the first name"
                 label="First name"
-                name="firstName"
+                name="first_name"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={values.first_name}
                 variant="outlined"
               />
             </Grid>
@@ -76,10 +76,10 @@ const AccountProfileDetails = (props) => {
               <TextField
                 fullWidth
                 label="Last name"
-                name="lastName"
+                name="last_name"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={values.last_name}
                 variant="outlined"
               />
             </Grid>

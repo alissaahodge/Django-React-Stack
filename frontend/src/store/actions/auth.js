@@ -10,14 +10,14 @@ export const signin = (formData) => async (dispatch) => {
     const {data} = await api.signIn(formData);
     dispatch({type: AUTH, data});
   } catch (e) {
-    console.log(e)
+    if(e.response){
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
-    );
+    ); }
   }
 };
 
@@ -34,11 +34,10 @@ export const signup = (formData) => async (dispatch) => {
       ), document.getElementById('alert'))
     );
   } catch (e) {
-    console.log(e);
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -57,7 +56,7 @@ export const updateAccount = (id, acc) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -75,7 +74,7 @@ export const updateAccountPassword = (id, acc) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );

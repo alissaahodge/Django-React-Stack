@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from rest_framework.response import Response
 from django.contrib.auth.hashers import make_password
 from pystack.api.core.roots.views import RootsEntityAPIView
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 import json
 from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
@@ -21,31 +21,34 @@ from pystack.api.core.socialUser.models import SocialUser
 @csrf_exempt
 def register(response):
     if response.method == "POST":
-        if User.objects.filter(email=response.POST["email"]).exists():
-            return HttpResponse(
-                json.dumps({"message": 'A user with this email already exists!'}), content_type="application/json"
+        data = json.loads(response.body)
+        form = UserCreationForm()
+        if User.objects.filter(email=data['email']).exists():
+            return HttpResponseBadRequest(
+                json.dumps({"detail": 'A user with this email already exists!'}), content_type="application/json"
             )
-        form = UserCreationForm(response.POST)
-        if form.is_valid():
-            user = form.save()
-            username = form.cleaned_data.get("email")
-            password = form.cleaned_data.get("password1")
-            user.first_name = response.POST["first_name"]
-            user.last_name = response.POST["last_name"]
-            user.email = response.POST["email"]
-            if "is_superuser" in response.POST and "is_staff" in response.POST:
-                is_superuser_ = response.POST["is_superuser"]
-                is_staff_ = response.POST["is_staff"]
-                user.save()
-            else:
-                user.save()
-                user = authenticate(username=username, password=password)
-                login(response, user)
-            form.message = "Here's a tip"
+        if data["confirmPassword"] != data['password']:
+            return HttpResponseBadRequest(
+                json.dumps({"detail": 'Passwords do not match'}), content_type="application/json"
+            )
+        username = data["email"]
+        email = data["email"]
+        password = data["confirmPassword"]
+        user = User.objects.create_user(username, email, password)
+        user.first_name = data["firstName"]
+        user.last_name = data["lastName"]
+        if "is_superuser" in response.POST and "is_staff" in response.POST:
+            is_superuser_ = response.POST["is_superuser"]
+            is_staff_ = response.POST["is_staff"]
+            user.save()
+        else:
+            user.save()
     else:
         form = UserCreationForm()
 
-    return render(response, "register/register.html", {"form": form})
+    return HttpResponse(
+        response, content_type="application/json"
+    )
 
 
 @csrf_exempt

@@ -110,7 +110,7 @@ const DashboardSidebar = ({onMobileClose, openMobile}) => {
           color="textPrimary"
           variant="h5"
         >
-          {user?.result.firstName}&nbsp;{user?.result?.lastName}
+          {user?.result.first_name}&nbsp;{user?.result?.last_name}
         </Typography>
         <Typography
           color="textSecondary"

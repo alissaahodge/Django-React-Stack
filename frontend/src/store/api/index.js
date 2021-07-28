@@ -20,4 +20,5 @@ export const deletePost = (id) => API.delete(`/blog/posts/${id}/`);
 export const signIn = (formData) => API.post('/auth/oauth/token', formData);
 export const signUp = (formData) => API.post('/register/', formData);
 export const updateAccount = (id, updatedAccount) => API.patch(`/users/${id}/`, updatedAccount);
+export const getAccountDetails = (id) => API.get(`/users/${id}/`);
 export const updateAccountPassword = (id, updatedAccount) => API.patch(`/users/${id}`, updatedAccount);
