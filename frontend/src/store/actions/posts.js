@@ -29,7 +29,7 @@ export const getPosts = (page) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -50,7 +50,7 @@ export const getPost = (id) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -69,7 +69,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -88,7 +88,7 @@ export const createPosts = (post) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -104,7 +104,7 @@ export const updatePost = (id, post) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -122,7 +122,7 @@ export const deletePost = (id) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );

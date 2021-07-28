@@ -11,11 +11,10 @@ export const signin = (formData) => async (dispatch) => {
     dispatch({type: AUTH, data});
   } catch (e) {
     console.log(e)
-    console.log(e.response.data.message);
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -39,7 +38,7 @@ export const signup = (formData) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -58,7 +57,7 @@ export const updateAccount = (id, acc) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -76,7 +75,7 @@ export const updateAccountPassword = (id, acc) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.message} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );

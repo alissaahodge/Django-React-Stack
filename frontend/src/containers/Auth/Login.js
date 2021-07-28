@@ -40,11 +40,11 @@ const Login = () => {
 
           <Formik
             initialValues={{
-              email: '',
+              username: '',
               password: ''
             }}
             validationSchema={Yup.object().shape({
-              email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+              username: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={(values) => {
@@ -153,11 +153,11 @@ const Login = () => {
                   helperText={touched.email && errors.email}
                   label="Email Address"
                   margin="normal"
-                  name="email"
+                  name="username"
                   onBlur={handleBlur}
                   onChange={handleChange}
                   type="email"
-                  value={values.email}
+                  value={values.username}
                   variant="outlined"
                 />
                 <TextField
