@@ -22,7 +22,7 @@ The features included on this stack include:
 ### Dev Setup :
 In order to run pystack locally your dev environment needs to be configured. To setup
 your environment, follow the following instructions:
-
+- make changes to file `env.example` to your choosing
 - RUN `make`<br>
 Poof! You're done!
 

@@ -21,11 +21,14 @@ from pystack.api.core.socialUser.models import SocialUser
 @csrf_exempt
 def register(response):
     if response.method == "POST":
-
+        if User.objects.filter(email=response.POST["email"]).exists():
+            return HttpResponse(
+                json.dumps({"message": 'A user with this email already exists!'}), content_type="application/json"
+            )
         form = UserCreationForm(response.POST)
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data.get("username")
+            username = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password1")
             user.first_name = response.POST["first_name"]
             user.last_name = response.POST["last_name"]
@@ -48,7 +51,6 @@ def register(response):
 @csrf_exempt
 def social_register(response):
     if response.method == "POST":
-        print(response.POST["password1"])
         username_ = response.POST["username"]
         password_ = make_password(
             response.POST["password1"], salt=None, hasher="default"

@@ -26,7 +26,7 @@ const Home = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/app/home', {replace: true});
+      navigate('/app/dashboard', {replace: true});
 
     } else {
       navigate('/home', {replace: true});
