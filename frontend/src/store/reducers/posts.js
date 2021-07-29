@@ -20,7 +20,7 @@ export default (state = { isLoading: true, posts: [] }, action) => {
     case FETCH_ALL :
       return {
         ...state,
-        posts: Object.values(action.payload.data),
+        posts: Object.values(action.payload.results),
         currentPage: action.payload.currentPage,
         numberOfPages: action.payload.numberOfPages
       };

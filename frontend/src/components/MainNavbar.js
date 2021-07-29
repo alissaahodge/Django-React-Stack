@@ -10,7 +10,7 @@ const MainNavbar = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const [user, setUser] =  useState(JSON.parse(localStorage.getItem('profile')));
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   useEffect(() => {
     const token = user?.token;
     //JWT

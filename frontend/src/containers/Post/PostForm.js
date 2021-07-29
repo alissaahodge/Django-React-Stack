@@ -25,8 +25,8 @@ const PostForm = () => {
     selectedFile: ''
   };
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('profile'));
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('profile'));
   const [postData, setPostData] = useState(initialState);
   const {id} = useParams();
   const {post} = useSelector((state) => state.posts);
@@ -37,7 +37,9 @@ const PostForm = () => {
   }, [post]);
 
   useEffect(() => {
-    dispatch(getPost(id));
+    if (id) {
+      dispatch(getPost(id));
+    }
   }, [id]);
   return (<>
     <Helmet>
@@ -66,11 +68,6 @@ const PostForm = () => {
             }
 
           }}
-          onDelete={(id) => {
-            dispatch(deletePost(id));
-            navigate('/app/posts', {replace: true});
-
-          }}
         >
           {({
               errors,
@@ -78,12 +75,11 @@ const PostForm = () => {
               handleChange,
               handleSubmit,
               isSubmitting,
-              onDelete,
               touched,
               values
             }) => (
             <Container maxWidth={false}>
-              <PostFormToolbar onSubmit={handleSubmit} onDelete={onDelete}/>
+              <PostFormToolbar onSubmit={handleSubmit} id={id} showRemove={!!id}/>
               <Box sx={{pt: 3}}>
                 <Paper>
                   < form onSubmit={handleSubmit}>
@@ -159,7 +155,7 @@ const PostForm = () => {
                     <FileBase type="file" multiple={false}
                               onDone={({base64}) => values.selectedFile = base64}/>
                   </form>
-                  {id && values.selectedFile!== null && <div>
+                  {id && values.selectedFile !== null && <div>
                     <Box
                       sx={{
                         display: 'flex',

@@ -118,17 +118,17 @@ const PostListResults = ({posts, ...rest}) => {
               {posts.slice(0, limit).map((post) => (
                 <TableRow
                   hover
-                  key={post._id}
-                  selected={selectedPostIds.indexOf(post._id) !== -1}
+                  key={post.id}
+                  selected={selectedPostIds.indexOf(post.id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedPostIds.indexOf(post._id) !== -1}
-                      onChange={(event) => handleSelectOne(event, post._id)}
+                      checked={selectedPostIds.indexOf(post.id) !== -1}
+                      onChange={(event) => handleSelectOne(event, post.id)}
                       value="true"
                     />
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post._id}`, {replace: true})}>
+                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     <Box
                       sx={{
                         alignItems: 'center',
@@ -149,16 +149,16 @@ const PostListResults = ({posts, ...rest}) => {
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post._id}`, {replace: true})}>
+                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     {post.title}
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post._id}`, {replace: true})}>
+                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     {post.message}
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post._id}`, {replace: true})}>
+                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     {post.tags}
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post._id}`, {replace: true})}>
+                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     {moment(post.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
                 </TableRow>
@@ -169,7 +169,7 @@ const PostListResults = ({posts, ...rest}) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={numberOfPages}
+        count={numberOfPages || 0}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={Number(page) || 1}

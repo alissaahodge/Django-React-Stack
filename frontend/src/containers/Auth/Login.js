@@ -17,7 +17,7 @@ import FacebookIcon from '../../icons/Facebook';
 import GoogleIcon from '../../icons/Google';
 import {signin} from '../../store/actions/auth';
 import {GOOGLE_CLIENT_ID} from '../../environment/environment';
-import React from "react";
+import React, {useEffect, useState} from "react";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -48,10 +48,11 @@ const Login = () => {
               password: Yup.string().max(255).required('Password is required')
             })}
             onSubmit={(values) => {
-              dispatch(signin(values)).then(() => {
+              dispatch(signin(values));
+              setTimeout(function () {
                 navigate('/app/dashboard', {replace: true});
+              }, 4000);
 
-              })
             }}
             googleSuccess={async (res) => {
               const result = res?.profileObj;

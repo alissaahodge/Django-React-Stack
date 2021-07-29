@@ -18,7 +18,6 @@ import React from "react";
 
 export const getPosts = (page) => async (dispatch) => {
   try {
-    console.log(page)
     dispatch({type: START_LOADING});
     const {data} = await api.fetchPosts(page);
     dispatch({type: FETCH_ALL, payload: data});
@@ -26,13 +25,16 @@ export const getPosts = (page) => async (dispatch) => {
 
   } catch (error) {
     console.log(error.message);
-    return (
-      ReactDOM.render((
-        <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data} open_={true}/>
-        </Paper>
-      ), document.getElementById('alert'))
-    );
+    if (error.response) {
+      return (
+        ReactDOM.render((
+          <Paper elevation={6}>
+            <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                                 message={error.response.data} open_={true}/>
+          </Paper>
+        ), document.getElementById('alert'))
+      );
+    }
   }
 };
 
@@ -41,7 +43,6 @@ export const getPost = (id) => async (dispatch) => {
   try {
     dispatch({type: START_LOADING});
     const {data} = await api.fetchPost(id);
-    console.log(data)
     dispatch({type: FETCH_POST, payload: data});
     dispatch({type: END_LOADING});
 
@@ -50,7 +51,8 @@ export const getPost = (id) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.detail} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                               message={error.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -69,7 +71,8 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.detail} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                               message={e.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -88,7 +91,8 @@ export const createPosts = (post) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.detail} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                               message={error.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -104,7 +108,8 @@ export const updatePost = (id, post) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.detail} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                               message={error.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -122,7 +127,8 @@ export const deletePost = (id) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.detail} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                               message={error.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );

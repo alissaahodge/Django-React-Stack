@@ -8,7 +8,7 @@ import ReactDOM from "react-dom";
 export const signin = (formData) => async (dispatch) => {
   try {
     const {data} = await api.signIn(formData);
-    dispatch({type: AUTH, data});
+    await dispatch({type: AUTH, data})
   } catch (e) {
     if(e.response){
     return (
