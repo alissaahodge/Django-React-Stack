@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import {
   Box,
@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import {Search as SearchIcon} from 'react-feather';
 import {useDispatch} from "react-redux";
-import {getPostsBySearch} from "../../store/actions/posts";
+import {getPosts, getPostsBySearch} from "../../store/actions/posts";
 
 const PostListToolbar = (props) => {
   const dispatch = useDispatch();
@@ -20,16 +20,26 @@ const PostListToolbar = (props) => {
   const [tags, setTags] = useState([]);
 
   const searchPost = () => {
-    if (search.trim() || tags) {
+    if (search.trim() || tags.length > 0) {
       dispatch(getPostsBySearch({search, tags: tags.join(',')}));
+    } else {
+      navigate('/app/posts', {replace: true});
+      dispatch(getPosts(1))
     }
   };
-  const handleKeyPress = (e) => {
-    if (e.keyCode === 13) {
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
       searchPost();
       //search for post
     }
   };
+
+  useEffect(() => {
+    if (!search || search.trim() === '' && tags.length === 0) {
+      navigate('/app/posts', {replace: true});
+      dispatch(getPosts(1))
+    }
+  }, [search]);
 
   return (
     <Box {...props}>

@@ -12,7 +12,7 @@ API.interceptors.request.use((req) => {
 
 export const fetchPosts = (page) => API.get(`/blog/posts/?page=${page}`);
 export const fetchPost = (id) => API.get(`/blog/posts/${id}/`);
-export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
+export const fetchPostsBySearch = (searchQuery) => API.get(`/blog/search/searchQuery-${searchQuery.search || 'none'}&tags-${searchQuery.tags|| 'none'}`);
 export const createPost = (newPost) => API.post('/blog/posts/', newPost);
 export const updatePost = (id, updatedPost) => API.patch(`/blog/posts/${id}/`, updatedPost);
 export const deletePost = (id) => API.delete(`/blog/posts/${id}/`);

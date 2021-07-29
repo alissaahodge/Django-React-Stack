@@ -62,8 +62,8 @@ export const getPost = (id) => async (dispatch) => {
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({type: START_LOADING});
-    const {data: {data}} = await api.fetchPostsBySearch(searchQuery);
-    dispatch({type: FETCH_BY_SEARCH, payload: {...data}});
+    const {data} = await api.fetchPostsBySearch(searchQuery);
+    dispatch({type: FETCH_BY_SEARCH, payload: data});
     dispatch({type: END_LOADING});
 
   } catch (e) {
@@ -120,8 +120,15 @@ export const updatePost = (id, post) => async (dispatch) => {
 export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePost(id);
-    dispatch({type: DELETE, payload: id})
-
+    dispatch({type: DELETE, payload: id});
+    return (
+      ReactDOM.render((
+        <Paper elevation={6}>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="success"
+                               message={'Removed!'} open_={true}/>
+        </Paper>
+      ), document.getElementById('alert'))
+    );
   } catch (error) {
     console.log(error.message);
     return (
