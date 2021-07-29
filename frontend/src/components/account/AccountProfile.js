@@ -8,7 +8,7 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import FileBase from "react-file-base64";
 import {updateAccount} from "../../store/actions/auth";
 import {useDispatch} from "react-redux";
@@ -18,15 +18,12 @@ import {useNavigate} from "react-router";
 const AccountProfile = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
   const handleSubmit = () => {
-    dispatch(updateAccount(user.id, {
-      ...user
+    dispatch(updateAccount(props.user.id, {
+      ...props.user
     }));
     navigate('/app/account', {replace: true});
-    window.location.reload();
-
   };
   return (
     <Card {...props}>
@@ -39,7 +36,7 @@ const AccountProfile = (props) => {
           }}
         >
           <Avatar
-            src={user.result.profilePhoto}
+            src={props.user.profilePhoto}
             sx={{
               height: 100,
               width: 100
@@ -50,13 +47,13 @@ const AccountProfile = (props) => {
             gutterBottom
             variant="h3"
           >
-            {user.result.first_name}  &nbsp;{user.result.last_name}
+            {props.user.first_name}  &nbsp;{props.user.last_name}
           </Typography>
           <Typography
             color="textSecondary"
             variant="body1"
           >
-            {user.result.email}
+            {props.user.email}
           </Typography>
         </Box>
       </CardContent>
@@ -71,7 +68,7 @@ const AccountProfile = (props) => {
         {/*</Button>*/}
 
         <FileBase type="file" multiple={false}
-                  onDone={({base64}) => {user.result.profilePhoto = base64; handleSubmit()}}/>
+                  onDone={({base64}) => {props.user.profilePhoto = base64; handleSubmit()}}/>
       </CardActions>
     </Card>
   )

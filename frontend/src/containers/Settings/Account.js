@@ -6,8 +6,12 @@ import {
 } from '@material-ui/core';
 import AccountProfile from '../../components/account/AccountProfile';
 import AccountProfileDetails from '../../components/account/AccountProfileDetails';
+import {useState} from "react";
 
-const Account = () => (
+const Account = () => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')).result);
+
+  return(
   <>
     <Helmet>
       <title>Account | Material Kit</title>
@@ -30,7 +34,7 @@ const Account = () => (
             md={6}
             xs={12}
           >
-            <AccountProfile />
+            <AccountProfile user={user} setUser={setUser}/>
           </Grid>
           <Grid
             item
@@ -38,12 +42,12 @@ const Account = () => (
             md={6}
             xs={12}
           >
-            <AccountProfileDetails />
+            <AccountProfileDetails values={user} setValues={setUser} />
           </Grid>
         </Grid>
       </Container>
     </Box>
   </>
-);
+)};
 
 export default Account;

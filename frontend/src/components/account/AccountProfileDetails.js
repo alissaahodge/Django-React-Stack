@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   Box,
   Button,
@@ -15,23 +15,21 @@ import {useNavigate} from "react-router";
 
 
 const AccountProfileDetails = (props) => {
-  const [values, setValues] = useState(JSON.parse(localStorage.getItem('profile')).result);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleChange = (event) => {
-    setValues({
-      ...values,
+    props.setValues({
+      ...props.values,
       [event.target.name]: event.target.value
     });
   };
 
   const handleSubmit = () => {
-    dispatch(updateAccount(values.id, {
-      ...values
+    dispatch(updateAccount(props.values.id, {
+      ...props.values
     }));
-    navigate('/app/account', {replace: true});
-    window.location.reload();
 
   };
   return (
@@ -64,7 +62,7 @@ const AccountProfileDetails = (props) => {
                 name="first_name"
                 onChange={handleChange}
                 required
-                value={values.first_name}
+                value={props.values.first_name}
                 variant="outlined"
               />
             </Grid>
@@ -79,7 +77,7 @@ const AccountProfileDetails = (props) => {
                 name="last_name"
                 onChange={handleChange}
                 required
-                value={values.last_name}
+                value={props.values.last_name}
                 variant="outlined"
               />
             </Grid>
@@ -94,7 +92,7 @@ const AccountProfileDetails = (props) => {
                 name="email"
                 onChange={handleChange}
                 required
-                value={values.email}
+                value={props.values.email}
                 variant="outlined"
               />
             </Grid>
