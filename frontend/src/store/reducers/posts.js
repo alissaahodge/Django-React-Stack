@@ -33,14 +33,14 @@ export default (state = { isLoading: true, posts: [] }, action) => {
     case UPDATE :
       return {
         ...state,
-        posts: Object.values(state.posts).map((post) => post._id === action.payload._id ? action.payload : post)
+        posts: Object.values(state.posts).map((post) => post.id === action.payload.id ? action.payload : post)
       };
     case DELETE :
-      return {...state, posts: Object.values(state.posts).filter((post) => post._id !== action.payload)};
+      return {...state, posts: Object.values(state.posts).filter((post) => post.id !== action.payload)};
     case LIKE_POST :
       return {
         ...state,
-        posts: Object.values(state.posts).map((post) => post._id === action.payload._id ? action.payload : post)
+        posts: Object.values(state.posts).map((post) => post.id === action.payload.id ? action.payload : post)
       };
     default:
       return state;

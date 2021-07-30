@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import PropTypes from 'prop-types';
@@ -17,6 +17,7 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
+import EnhancedTableToolbar from './EnhancedTableToolbar';
 import getInitials from '../../utils/getInitials';
 import {getPosts} from "../../store/actions/posts";
 
@@ -83,6 +84,7 @@ const PostListResults = ({posts, ...rest}) => {
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{minWidth: 1050}}>
+          <EnhancedTableToolbar numSelected={selectedPostIds.length} label='Posts' selectedPosts={selectedPostIds}/>
           <Table>
             <TableHead>
               <TableRow>
@@ -128,7 +130,7 @@ const PostListResults = ({posts, ...rest}) => {
                       value="true"
                     />
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
+                  <TableCell onClick={() => navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     <Box
                       sx={{
                         alignItems: 'center',
@@ -149,16 +151,16 @@ const PostListResults = ({posts, ...rest}) => {
                       </Typography>
                     </Box>
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
+                  <TableCell onClick={() => navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     {post.title}
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
+                  <TableCell onClick={() => navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     {post.message}
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
+                  <TableCell onClick={() => navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     {post.tags}
                   </TableCell>
-                  <TableCell   onClick={()=>navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
+                  <TableCell onClick={() => navigate(`/app/posts/edit/${post.id}`, {replace: true})}>
                     {moment(post.createdAt).format('DD/MM/YYYY')}
                   </TableCell>
                 </TableRow>
