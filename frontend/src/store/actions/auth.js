@@ -68,7 +68,13 @@ export const updateAccountPassword = (id, acc) => async (dispatch) => {
   try {
     const {data} = await api.updateAccountPassword(id, acc);
     return dispatch({type: LOGOUT});
-
+    return (
+      ReactDOM.render((
+        <Paper elevation={6}>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="success" message={'Password Changed'} open_={true}/>
+        </Paper>
+      ), document.getElementById('alert'))
+    );
   } catch (error) {
     console.log(error.message);
     return (

@@ -17,8 +17,9 @@ import DeleteIcon from "@material-ui/core/SvgIcon/SvgIcon";
 const SettingsPassword = (props) => {
   const id = JSON.parse(localStorage.getItem('profile')).result.id;
   const [values, setValues] = useState({
-    password: '',
-    confirmPassword: ''
+    old_password: '',
+    new_password: '',
+    new_password2: '',
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,12 +30,13 @@ const SettingsPassword = (props) => {
       [event.target.name]: event.target.value
     });
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     dispatch(updateAccountPassword(id, {
       ...values
     }));
-    navigate('/home', {replace: true});
+    setTimeout(function () {
+      navigate('/home', {replace: true});
+    }, 3000);
 
   };
   return (
@@ -49,23 +51,34 @@ const SettingsPassword = (props) => {
           <TextField
             fullWidth
             required
-            label="Password"
+            label="Old Password"
             margin="normal"
-            name="password"
+            name="old_password"
             onChange={handleChange}
             type="password"
-            value={values.password}
+            value={values.old_password}
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            required
+            label="New Password"
+            margin="normal"
+            name="new_password"
+            onChange={handleChange}
+            type="password"
+            value={values.new_password}
             variant="outlined"
           />
           <TextField
             required
             fullWidth
-            label="Confirm password"
+            label="Confirm New Password"
             margin="normal"
-            name="confirmPassword"
+            name="new_password2"
             onChange={handleChange}
             type="password"
-            value={values.confirmPassword}
+            value={values.new_password2}
             variant="outlined"
           />
         </CardContent>

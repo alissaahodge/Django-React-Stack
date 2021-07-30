@@ -18,6 +18,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+from pystack.api.core.user import views
 
 urlpatterns = [
     path("auth/", include("pystack.api.core.auth.urls")),
@@ -27,4 +28,8 @@ urlpatterns = [
     path("blog/", include("pystack.api.apps.blog.urls")),
     path("memos/", include("pystack.api.apps.memo.urls")),
     path("upload/", include("pystack.api.apps.upload.urls")),
+# https://github.com/anexia-it/django-rest-passwordreset
+    path('password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
+    path('change-password/', views.ChangePasswordView.as_view()),
+
 ]

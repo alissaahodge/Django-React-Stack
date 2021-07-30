@@ -4,6 +4,7 @@ django-filter==2.1.0
 django-query-builder==1.2.0
 djangorestframework==3.9.4
 djangorestframework-simplejwt==4.3.0
+django-rest-passwordreset==1.2.0
 fleming==0.5.0
 Markdown==3.1
 numpy==1.17.0
