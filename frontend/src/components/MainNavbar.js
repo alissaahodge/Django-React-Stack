@@ -11,17 +11,17 @@ const MainNavbar = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-  useEffect(() => {
-    const token = user?.token;
-    //JWT
-    setUser(JSON.parse(localStorage.getItem('profile')));
-    if (token) {
-      const decodedToken = decode(token);
-      if (decodedToken.exp * 1000 < new Date().getTime()) {
-        logout();
-      }
-    }
-  }, [location]);
+  // useEffect(() => {
+  //   const token = user?.token;
+  //   //JWT
+  //   setUser(JSON.parse(localStorage.getItem('profile')));
+  //   if (token) {
+  //     const decodedToken = decode(token);
+  //     if (decodedToken.exp * 1000 < new Date().getTime()) {
+  //       logout();
+  //     }
+  //   }
+  // }, [location]);
 
   const logout = () => {
     dispatch({type: LOGOUT});

@@ -11,4 +11,5 @@ urlpatterns = [
     path("posts/", include(router.urls)),
     # path('posts/<int:social_id>/', include(router.urls)),
     path("stats/", views.SocialUserStatsView.as_view()),
+    path('social/<str:backend>/', views.views.exchange_token),
 ]

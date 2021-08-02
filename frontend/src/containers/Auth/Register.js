@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {GoogleLogin} from "react-google-login";
 import {Helmet} from 'react-helmet';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
@@ -16,8 +15,7 @@ import {
   Typography
 } from '@material-ui/core';
 import {signup} from '../../store/actions/auth';
-import GoogleIcon from "../../icons/Google";
-import {GOOGLE_CLIENT_ID} from '../../environment/environment';
+import GoogleAuth from "../../components/Auth/GoogleAuth";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -214,16 +212,7 @@ const Register = () => {
                     Sign up now
                   </Button></Box>
                 <Box sx={{py: 2}}>
-                  <GoogleLogin clientId={GOOGLE_CLIENT_ID} render={(renderProps) => (<Button
-                    fullWidth
-                    startIcon={<GoogleIcon/>}
-                    onClick={renderProps.onClick}
-                    size="large"
-                    variant="contained"
-                  >
-                    Login with Google
-                  </Button>)}
-                               onSuccess={googleSuccess} onFailure={googleFailure} cookiePolicy="single_host_origin"/>
+                  <GoogleAuth/>
                 </Box>
                 <Typography
                   color="textSecondary"

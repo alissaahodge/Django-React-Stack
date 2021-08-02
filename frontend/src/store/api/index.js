@@ -22,3 +22,5 @@ export const signUp = (formData) => API.post('/register/', formData);
 export const updateAccount = (id, updatedAccount) => API.patch(`/users/${id}/`, updatedAccount);
 export const getAccountDetails = (id) => API.get(`/users/${id}/`);
 export const updateAccountPassword = (id, updatedAccount) => API.put(`/change-password/`, updatedAccount);
+
+export const googleAuth = (access_token) => API.post('/socialUser/social/google-oauth2/',{ access_token: access_token});
