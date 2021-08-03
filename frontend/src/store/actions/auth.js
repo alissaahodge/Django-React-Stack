@@ -11,14 +11,16 @@ export const signin = (formData) => async (dispatch) => {
     console.log(data)
     await dispatch({type: AUTH, data})
   } catch (e) {
-    if(e.response){
-    return (
-      ReactDOM.render((
-        <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.detail} open_={true}/>
-        </Paper>
-      ), document.getElementById('alert'))
-    ); }
+    if (e.response) {
+      return (
+        ReactDOM.render((
+          <Paper elevation={6}>
+            <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                                 message={e.response.data.detail} open_={true}/>
+          </Paper>
+        ), document.getElementById('alert'))
+      );
+    }
   }
 };
 
@@ -30,7 +32,8 @@ export const signup = (formData) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="success" message={'Registration was successful!'} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="success"
+                               message={'Registration was successful!'} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -38,7 +41,8 @@ export const signup = (formData) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.detail} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                               message={e.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -57,7 +61,8 @@ export const updateAccount = (id, acc) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.detail} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                               message={error.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -72,7 +77,8 @@ export const updateAccountPassword = (id, acc) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="success" message={'Password Changed'} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="success"
+                               message={'Password Changed'} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -81,7 +87,8 @@ export const updateAccountPassword = (id, acc) => async (dispatch) => {
     return (
       ReactDOM.render((
         <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={error.response.data.detail} open_={true}/>
+          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                               message={error.response.data.detail} open_={true}/>
         </Paper>
       ), document.getElementById('alert'))
     );
@@ -89,18 +96,21 @@ export const updateAccountPassword = (id, acc) => async (dispatch) => {
 };
 
 
-export const googleAuth = (token) => async (dispatch) => {
+export const googleAuth = (result) => async (dispatch) => {
   try {
-    const {data} = await api.googleAuth(token);
+    const {data} = await api.googleAuth(result.accessToken);
+    data.result.profile_photo = result.profileObj.imageUrl;
     await dispatch({type: GOOGLE_AUTH, data})
   } catch (e) {
-    if(e.response){
-    return (
-      ReactDOM.render((
-        <Paper elevation={6}>
-          <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error" message={e.response.data.detail} open_={true}/>
-        </Paper>
-      ), document.getElementById('alert'))
-    ); }
+    if (e.response) {
+      return (
+        ReactDOM.render((
+          <Paper elevation={6}>
+            <CustomizedSnackbars variant="filled" horizontal="right" vertical="top" severity="error"
+                                 message={e.response.data.detail} open_={true}/>
+          </Paper>
+        ), document.getElementById('alert'))
+      );
+    }
   }
 };

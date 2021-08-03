@@ -98,7 +98,7 @@ const DashboardSidebar = ({onMobileClose, openMobile}) => {
       >
         <Avatar
           component={RouterLink}
-          src={user?.result?.profilePhoto || dummyFile}
+          src={user?.result?.profile_photo || dummyFile}
           sx={{
             cursor: 'pointer',
             width: 64,

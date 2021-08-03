@@ -12,9 +12,11 @@ const GoogleAuth = () => {
   const navigate = useNavigate();
   const googleSuccess = async (res) => {
     try {
-      dispatch(googleAuth(res.accessToken));
-
+      dispatch(googleAuth(res));
       navigate('/app/dashboard', {replace: true});
+       setTimeout(function () {
+                navigate('/app/dashboard', {replace: true});
+              }, 2000);
     } catch (error) {
       console.log(error)
     }
