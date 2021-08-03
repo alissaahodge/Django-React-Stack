@@ -8,6 +8,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from requests.exceptions import HTTPError
 
@@ -30,8 +31,6 @@ class SocialSerializer(serializers.Serializer):
 @permission_classes([AllowAny])
 @psa()
 def exchange_token(request, backend):
-    print(request.data)
-    print(backend)
     """
     Exchange an OAuth2 access token for one for this site.
     This simply defers the entire OAuth2 process to the front end.
@@ -79,8 +78,9 @@ def exchange_token(request, backend):
 
         if user:
             if user.is_active:
-                token, _ = Token.objects.get_or_create(user=user)
-                return Response({'token': token.key, 'result': model_to_dict(user)})
+                token_, created = Token.objects.get_or_create(user=user)
+                token = get_tokens_for_user(user)
+                return Response({'token': token['access'], 'result': model_to_dict(user)})
             else:
                 # user is not active; at some point they deleted their account,
                 # or were banned by a superuser. They can't just log in with their
@@ -98,3 +98,12 @@ def exchange_token(request, backend):
                 {'errors': {nfe: "Authentication Failed"}},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+
+def get_tokens_for_user(user):
+    refresh = RefreshToken.for_user(user)
+
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
