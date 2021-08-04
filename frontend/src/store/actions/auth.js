@@ -8,7 +8,6 @@ import ReactDOM from "react-dom";
 export const signin = (formData) => async (dispatch) => {
   try {
     const {data} = await api.signIn(formData);
-    console.log(data)
     await dispatch({type: AUTH, data})
   } catch (e) {
     if (e.response) {
@@ -100,6 +99,7 @@ export const googleAuth = (result) => async (dispatch) => {
   try {
     const {data} = await api.googleAuth(result.accessToken);
     data.result.profile_photo = result.profileObj.imageUrl;
+    data.social = true;
     await dispatch({type: GOOGLE_AUTH, data})
   } catch (e) {
     if (e.response) {

@@ -28,27 +28,32 @@ const items = [
   {
     href: '/app/dashboard',
     icon: BarChartIcon,
-    title: 'Dashboard'
+    title: 'Dashboard',
+    show: true
   },
   {
     href: '/app/posts',
     icon: BookIcon,
-    title: 'Manage Posts'
+    title: 'Manage Posts',
+    show: true
   },
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Posts Listing'
+    title: 'Posts Listing',
+    show: true
   },
   {
     href: '/app/account',
     icon: UserIcon,
-    title: 'Account'
+    title: 'Account',
+    show: false
   },
   {
     href: '/app/settings',
     icon: SettingsIcon,
-    title: 'Settings'
+    title: 'Settings',
+    show: false
   }
 ];
 
@@ -121,28 +126,29 @@ const DashboardSidebar = ({onMobileClose, openMobile}) => {
         <br/>
         {
           user && <Hidden lgDown>
-              <Button
-                color="primary"
-                fullWidth
-                size="small"
-                variant="contained"
-                onClick={logout}
-              >
-                Log Out
-              </Button>
+            <Button
+              color="primary"
+              fullWidth
+              size="small"
+              variant="contained"
+              onClick={logout}
+            >
+              Log Out
+            </Button>
           </Hidden>}
       </Box>
       <Divider/>
       <Box sx={{p: 2}}>
         <List>
           {items.map((item) => (
-            <NavItem
-              href={item.href}
-              key={item.title}
-              title={item.title}
-              icon={item.icon}
-            />
-          ))}
+            (item.show===true || !user?.social) && <NavItem
+                href={item.href}
+                key={item.title}
+                title={item.title}
+                icon={item.icon}
+              />
+
+            ))}
         </List>
       </Box>
       <Box sx={{flexGrow: 1}}/>
