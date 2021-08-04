@@ -67,3 +67,33 @@ your models and you're ready to test them. This will apply the necessary DB upda
 - You should create a superuser on start by running the command `docker-compose exec python manage.py createsuperuser`
 `Happy dev-ing :D`
 
+### Screenshots
+##### Home
+<code>
+<img src='https://github.com/alissaahodge/Django-React-Stack/blob/master/ReadMeImages/Screenshot%202021-08-04%20at%207.29.47%20AM.png?raw=true'/>
+</code>
+
+##### Login
+<code>
+<img src='https://github.com/alissaahodge/MERN-Stack-basic/blob/master/ReadMeImages/Screenshot%202021-08-04%20at%207.30.09%20AM.png?raw=true'/>
+</code>
+
+##### Dashboard
+<code>
+<img src='https://github.com/alissaahodge/Django-React-Stack/blob/master/ReadMeImages/Screenshot%202021-08-04%20at%207.43.19%20AM.png?raw=true'/>
+</code>
+
+##### Posts Record Listing
+<code>
+<img src='https://github.com/alissaahodge/Django-React-Stack/blob/master/ReadMeImages/Screenshot%202021-08-04%20at%207.43.30%20AM.png?raw=true'/>
+</code>
+
+##### Sample Products Record Listing
+<code>
+<img src='https://github.com/alissaahodge/Django-React-Stack/blob/master/ReadMeImages/Screenshot%202021-08-04%20at%207.43.46%20AM.png?raw=true'/>
+</code>
+
+##### Account Settings
+<code>
+<img src='https://github.com/alissaahodge/Django-React-Stack/blob/master/ReadMeImages/Screenshot%202021-08-04%20at%207.43.51%20AM.png?raw=true'/>
+</code>
