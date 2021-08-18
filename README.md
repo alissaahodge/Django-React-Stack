@@ -3,10 +3,10 @@
 ## About 
 This development stack makes use the following frameworks:
 
-Django (Python 3.7)
-React
-Postgres DB
-Docker
+Django (Python 3.7)<br>
+React<br>
+Postgres DB<br>
+Docker<br>
 Nginx
 
 The features included on this stack include:
